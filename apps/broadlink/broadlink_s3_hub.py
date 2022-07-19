@@ -26,7 +26,10 @@ class BroadlinkS3Hub(hass.Hass):
         self.entity = self.get_ad_api().get_entity(entity_id)
         if self.entity.exists():
             self.remove_entity(entity_id)
-        attributes = {"friendly_name": self.friendly_names[index]}
+        attributes = {
+            "friendly_name": self.friendly_names[index],
+            "unique_id": "s3_slug." + entity_id,
+        }
         state = self._get_device_state(entity_id=entity_id)
         self.entity.add(state=state, attributes=attributes)
 
